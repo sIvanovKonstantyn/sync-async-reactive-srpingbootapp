@@ -1,0 +1,11 @@
+# Debian slim + 21jdk
+FROM openjdk:17.0.1-jdk-slim
+
+# Continue with your application deployment
+RUN mkdir /opt/app
+COPY /target/demo-0.0.1-SNAPSHOT.jar /opt/app
+CMD ["java", "-XX:+UseG1GC", "-XX:+UseCompressedOops", "-Dcom.sun.management.jmxremote.rmi.port=7012", "-Dcom.sun.management.jmxremote.port=7012", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Djava.rmi.server.hostname=127.0.0.1", "-jar", "/opt/app/demo-0.0.1-SNAPSHOT.jar"]
+
+# "-XX:MaxHeapSize=805306368", "-XX:+UseZGC", "-XX:+UseCompressedOops",
+# "-Dcom.sun.management.jmxremote",
+# "-XX:NativeMemoryTracking=summary",
